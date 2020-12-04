@@ -1,0 +1,96 @@
+{
+  "name": "typescript-starter",
+  "license": "MIT",
+  "version": "1.2.0",
+  "description": "field_description",
+  "files": [
+    "lib",
+    "index.d.ts",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "npm run cover",
+    "check-coverage": "nyc check-coverage --lines 65 --functions 60 --Statements 65",
+    "ava": "NODE_ENV=test ava",
+    "server": "node server",
+    "lint": "pretty-quick --staged && eslint src --fix --ext .js,.tsx,.ts --quiet",
+    "qualitycheck": "npm-run-all typecheck",
+    "cover": "tsc && NODE_ENV=test npm run lint && nyc npm run ava",
+    "size": "ls -lh lib/",
+    "bp": "npm run build && npm run size",
+    "build:js": "rm -rf ./lib && babel src/ --source-maps inline --extensions \".ts,.tsx,.js,.jsx\" --ignore **/__test__/**,src/**/**.test.ts -d lib",
+    "build:watch": "babel --watch src/**/*.ts -d lib",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "npm run build:js && npm run build:types",
+    "changelog-major": "build-changelog --major",
+    "changelog-minor": "build-changelog --minor",
+    "changelog-patch": "build-changelog --patch"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.test.ts",
+      "src/**/__tests__/**"
+    ],
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary",
+      "cobertura"
+    ],
+    "extension": [
+      ".tsx",
+      ".ts"
+    ],
+    "cache": true,
+    "temp-directory": "./coverage/.nyc_output"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/puncsky/template_website.git"
+  },
+  "keywords": [],
+  "author": "field_author",
+  "bugs": {
+    "url": "https://github.com/puncsky/template_website/issues"
+  },
+  "homepage": "https://github.com/puncsky/template_website#readme",
+  "devDependencies": {
+    "@babel/cli": "7.12.8",
+    "@babel/core": "7.12.9",
+    "@babel/preset-env": "7.12.7",
+    "@babel/preset-typescript": "7.12.7",
+    "@babel/register": "7.12.1",
+    "@types/node": "11.15.39",
+    "ava": "2.4.0",
+    "babel-loader": "8.2.2",
+    "babel-plugin-module-resolver": "3.2.0",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "build-changelog": "2.1.2",
+    "global": "4.4.0",
+    "nyc": "14.1.1",
+    "ts-node": "8.10.2",
+    "husky": "3.1.0",
+    "prettier": "1.19.1",
+    "pretty-quick": "2.0.2",
+    "typescript": "3.9.7",
+    "@puncsky/eslint-config-onefx": "2.5.0",
+    "@typescript-eslint/eslint-plugin": "4.9.0",
+    "@typescript-eslint/parser": "4.9.0",
+    "eslint": "7.14.0",
+    "eslint-plugin-import": "2.22.1"
+  },
+  "engines": {
+    "node": "10.23.0",
+    "npm": "6.14.9"
+  },
+  "private": true,
+  "dependencies": {}
+}
